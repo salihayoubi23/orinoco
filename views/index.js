@@ -76,8 +76,8 @@ var get = function(url){
     image.src = produit.imageUrl;
     btn.textContent= "Voir produit"
     btn.addEventListener('click' , function( ){
+
         btn.href= 'produit.html?id=' + produit._id
-                 
 
     })
     
