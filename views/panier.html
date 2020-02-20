@@ -26,7 +26,48 @@
           </nav>
           
       </header> 
-      <h1>Votre panier est vide :( </h1>
+      <div id="paniervide">
+          <h2>votre panier est vide , voulez vous retourner voir les articles ?</h2>
+          <button onclick="window.location.href='index.html'" class="btn" >voir les produits</button>
+            
+      </div>
+
+    <div id="paniergarnis">
+        <h2> voici les contenants de votre panier :</h2>
+        <div id="articlepanier" class=""> </div>
+
+          <div class="container">  
+            <form id="contact" action="" method="post">
+              <h3>Formulaire de contact </h3>
+              <h4>VEUILLEZ REMPLIR LE FORMULAIRE AFIN DE FINALISER LA TRANSACTION </h4>
+              <fieldset>
+                <input id="name" placeholder="Nom " type="text"  name="name" tabindex="1" required autofocus>
+              </fieldset>
+              <fieldset>
+                <input id="prenom" placeholder="prénom" type="text" name="name" tabindex="2" required autofocus>
+              </fieldset>
+              <fieldset>
+                <input id="email" placeholder="Votre adresse email"  type="email" tabindex="3" required>
+              </fieldset>
+            
+              <fieldset>
+                <input id="adresse" placeholder="Votre adresse" type="text" tabindex="4" required>
+              </fieldset>
+              <fieldset>
+                <input id="ville" placeholder="Ville" type="text" tabindex="5" required>
+              </fieldset>
+              
+              <fieldset>
+                <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Envoyer</button>
+              </fieldset>
+            </form>
+           
+            
+    </div>
+  </div>     
+      
+
+      
     <script src="panier.js"></script>
 </body>
 </html>

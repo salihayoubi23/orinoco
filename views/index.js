@@ -36,6 +36,16 @@ var get = function(url){
 
          var demo = async function(){
              var arr = await Promise.all([getp1(), getp2(), getp3()])
+             arr[0].map((prod) => {
+                prod['api'] = "cameras";
+            })
+            arr[1].map((prod) => {
+                prod['api'] = "teddies";
+            })
+            arr[2].map((prod) => {
+                prod['api'] = "furniture";
+            })
+        
              var allproducts = [ arr[0].concat(arr[1] , arr[2])] 
              
              allproducts.forEach(function(products){
@@ -69,7 +79,6 @@ var get = function(url){
     btn.setAttribute('button' , 'click')
     btn.setAttribute('class' , 'btn')
    
-    image.src = produit.imageUrl;
     titre.textContent = produit.name;
     description.textContent= produit.description;
     prix.textContent= "Prix: " + produit.price + "€" ;
@@ -77,7 +86,7 @@ var get = function(url){
     btn.textContent= "Voir produit"
     btn.addEventListener('click' , function( ){
 
-        btn.href= 'produit.html?id=' + produit._id
+        btn.href = 'produit.html?id=' + produit._id + '&api=' + produit.api
 
     })
     
