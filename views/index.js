@@ -89,11 +89,7 @@ var get = function(url){
         btn.href = 'produit.html?id=' + produit._id + '&api=' + produit.api
 
     })
-    
-
-
-
-                 })
-             })
-         }
+   })
+ })
+}
         demo()

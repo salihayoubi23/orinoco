@@ -107,8 +107,6 @@ envoyer.addEventListener('click', function(e) {
     envoyerFormulaire(infoFormulaire);
 });
 
-
-
 var get = function(url){
     return new Promise(function(resolve , reject){
         var xhr = new window.XMLHttpRequest()
@@ -121,51 +119,33 @@ var get = function(url){
             }
         }
     }
-    xhr.open('POST', url , true)
+    xhr.open('POST', url)
     xhr.send()
     })
   }
 
             var getp1 = async function(){
-                response= await get('http://localhost:3000/api/')
+                response= await get('http://localhost:3000/api/cameras/order')
                 var posts = JSON.parse(response)
                 return posts
             }
             var getp2 = async function(){
-                response= await get('http://localhost:3000/api/')
+                response= await get('http://localhost:3000/api/teddies/order')
                 var posts = JSON.parse(response)
                 return posts
             }
             var getp3 = async function(){
-                response= await get('http://localhost:3000/api/')
+                response= await get('http://localhost:3000/api/furniture/order')
                 var posts = JSON.parse(response)
                 return posts
             }
 
         
-          
 
-         var demo = async function(){
-             var arr = await Promise.all([getp1(), getp2(), getp3()])
-             arr[0].map((prod) => {
-                prod['api'] = "cameras";
-            })
-            arr[1].map((prod) => {
-                prod['api'] = "teddies";
-            })
-            arr[2].map((prod) => {
-                prod['api'] = "furniture";
-            })
-            let ajoutId1= new URLSearchParams(window.location.search); 
-             console.log(ajoutId1, "test");
-              let api = ajoutId1.get("api");
-
-             let id1 = ajoutId1.get("id");
-         }
          async function envoyerFormulaire(infoFormulaire){
-            var requestPromise = demo(infoFormulaire);
+            var requestPromise = get(infoFormulaire);
             var response = await requestPromise;
-            window.location = 'confirmation.html?id=' +id + '&api'+ response.orderId + '&price=' + total;
+            window.location = 'confirmation.html?id=' + response.orderId + '&price=' + total;
             localStorage.clear();
         }
         
