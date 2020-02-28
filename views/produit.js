@@ -80,7 +80,6 @@ request.onload = function () {
             name: product1.name,
             price: product1.price,
             id: product1._id,
-            qty: 1,
             imageUrl: product1.imageUrl
         };
 

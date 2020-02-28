@@ -83,7 +83,16 @@ let formsAdresse = document.getElementById('adresse')
 let formsVille = document.getElementById('ville')
 let envoyer = document.getElementById('contact-submit');
 let formulaire = document.getElementById('contact');
-
+//regex mail
+formsEmail.addEventListener('input', ($event) => {
+    var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
+    if (formsEmail.value.match(regex)) {
+        envoyer.removeAttribute('disabled');
+    }
+    else {
+        envoyer.setAttribute('disabled');
+    }
+});
 // a partir du boutton envoyer on vas creer notre objet info formulaire et creer une fonction pour lenvoyer en requete post 
 envoyer.addEventListener('click', function (e) {
     e.preventDefault();
