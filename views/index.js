@@ -1,3 +1,6 @@
+// Creation d'une fonction pour faire un appel Ajax
+// On renvoie une promesse qui prend en paramettre une fonction 
+  // avec 2 paramètres, le callback de succès et d'erreur
 var get = function(url){
     return new Promise(function(resolve , reject){
         var xhr = new window.XMLHttpRequest()
@@ -14,7 +17,7 @@ var get = function(url){
     xhr.send()
     })
   }
-
+// recupération des APIS
             var getp1 = async function(){
                 response= await get('http://localhost:3000/api/cameras')
                 var posts = JSON.parse(response)
@@ -30,12 +33,11 @@ var get = function(url){
                 var posts = JSON.parse(response)
                 return posts
             }
-
-        
-          
+// creation  d'une fonction demo qui vas récuperer mes api les mettres dans un seule tableaux et enfin renvoyer au clik a la page produit   
 
          var demo = async function(){
              var arr = await Promise.all([getp1(), getp2(), getp3()])
+             // definire chaque chaque catégorie avec map()
              arr[0].map((prod) => {
                 prod['api'] = "cameras";
             })
@@ -45,15 +47,15 @@ var get = function(url){
             arr[2].map((prod) => {
                 prod['api'] = "furniture";
             })
-        
-             var allproducts = [ arr[0].concat(arr[1] , arr[2])] 
+ // mettre le tout dans un seul tableau       
+var allproducts = [ arr[0].concat(arr[1] , arr[2])] 
              
-             allproducts.forEach(function(products){
-                
-                 products.forEach(function(produit){
-                  console.log(produit)
-                  let container = document.getElementById('container')
-                  let cartes = document.createElement("section")
+allproducts.forEach(function(products){
+ // creation de carte produit pour chaque élément du tableau                 
+ products.forEach(function(produit){
+    console.log(produit)
+    let container = document.getElementById('container')
+    let cartes = document.createElement("section")
     let carte = document.createElement("div")
     let image = document.createElement("img")
     let titre = document.createElement("h3")
@@ -84,12 +86,13 @@ var get = function(url){
     prix.textContent= "Prix: " + produit.price + "€" ;
     image.src = produit.imageUrl;
     btn.textContent= "Voir produit"
+    // ce bouton renvoie chaque article a sa page de description 
     btn.addEventListener('click' , function( ){
-
-        btn.href = 'produit.html?id=' + produit._id + '&api=' + produit.api
+    btn.href = 'produit.html?id=' + produit._id + '&api=' + produit.api
 
     })
    })
  })
 }
-        demo()
+// lancement de la fonction 
+  demo()
