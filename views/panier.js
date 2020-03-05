@@ -26,7 +26,7 @@ for (var i = 0; i < panier.length; i++) {
     imageUrl.setAttribute('class', 'imagep')
     titre.setAttribute('class', 'titrep')
     prix.setAttribute('class', 'prixp')
-
+    
     titre.textContent = panier[i].name;
     prix.textContent = 'Prix:' + ' ' + panier[i].price + '€';
     imageUrl.src = panier[i].imageUrl;
@@ -84,30 +84,32 @@ let formsVille = document.getElementById('ville')
 let envoyer = document.getElementById('contact-submit');
 let formulaire = document.getElementById('contact');
 //regex mail
-formsEmail.addEventListener('input', ($event) => {
+formsEmail.addEventListener('input', ($event) => { 
     var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
-    if (formsEmail.value.match(regex)) {
-        envoyer.removeAttribute('disabled');
-    }
-    else {
-        envoyer.setAttribute('disabled');
-    }
+     if (formsEmail.value.match(regex)) {
+         envoyer.removeAttribute('disabled');
+     }
+     else {
+       envoyer.setAttribute('disabled');
+     }
 });
 // a partir du boutton envoyer on vas creer notre objet info formulaire et creer une fonction pour lenvoyer en requete post 
 envoyer.addEventListener('click', function (e) {
     e.preventDefault();
+    
     infoFormulaire = new Object();
-    infoFormulaire.contact = {
-        prenom: formsPrenom.value,
-        nom: formsNom.value,
+    infoFormulaire.contact = { 
+        firstName: formsPrenom.value,
+        lastName: formsNom.value,
         email: formsEmail.value,
-        adresse: formsAdresse.value,
-        ville: formsVille.value
+        address: formsAdresse.value,
+        city: formsVille.value
 
     };
     infoFormulaire.products = [];
+    
     for (var i = 0; i < panier.length; i++) {
-        infoFormulaire.products.push(panier[i].id);
+        infoFormulaire.products.push({id: panier[i].id, api: panier[i].api}); // ajout api dans products
     }
     envoyerFormulaire(infoFormulaire);
 });
@@ -131,11 +133,20 @@ var post = function (url, data) { // ajout param data pour envoyé la donnée
 }
 
 async function envoyerFormulaire(infoFormulaire) {
-    // ici seule la catégorie doudou peut etre vendu 
-    var requestPromise = post('http://localhost:3000/api/teddies/order',infoFormulaire);
-    var responses = await requestPromise;
-    var response =  JSON.parse(responses)
-   window.location = 'confirmation.html?id=' + response.orderId + '&price=' + total;
-   localStorage.clear();
+    for (let index = 0; index < infoFormulaire.products.length; index++) {
+        const element = infoFormulaire.products[index];
+        const product = { //  on crée un objet produit pour produit du tableau products 
+            contact: infoFormulaire.contact, 
+            products: [element.id]
+        }
+        
+        let requestPromise = post('http://localhost:3000/api/'+ element.api +'/order',product);
+        let responses = await requestPromise;
+        let response =  JSON.parse(responses)
+        console.log(response);
+        window.location = 'confirmation.html?id=' + response.orderId + '&price=' + total;
+        
+    }
+    
 }
 
