@@ -82,7 +82,7 @@ var infoProduit = {
     price: product1.price,
     id: product1._id,
     imageUrl: product1.imageUrl,
-    api: api // !!!!!!!!!!!!!!!!!!!!!!! Ajout de l'api à requeter dans le produit
+    api: api //  Ajout de l'api à requeter dans le produit
 };
 
 var listsProduit = localStorage.getItem('panier') ?

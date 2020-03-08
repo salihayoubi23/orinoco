@@ -16,7 +16,7 @@ var get = function(url){
     xhr.open('GET', url , true)
     xhr.send()
     })
-  }
+}
 // recupération des APIS
             var getp1 = async function(){
                 response= await get('http://localhost:3000/api/cameras')
